@@ -21,7 +21,6 @@ const IndeterminateCheckbox = React.forwardRef(
 
 const Table = ({ columns, tableData, updateData }) => {
 
-    const[previousData, setPreviousData] = useState([]);
     const [data, setData] = useState(tableData);
   
     // Use the state and functions returned from useTable to build your UI
@@ -31,7 +30,6 @@ const Table = ({ columns, tableData, updateData }) => {
       headerGroups,
       rows,
       prepareRow,
-      selectedFlatRows,
       state: { selectedRowIds },
     } = useTable(
       {
@@ -109,24 +107,8 @@ const Table = ({ columns, tableData, updateData }) => {
         </table>
         <br />
         <Button variant="primary" onClick={() => {
-            setPreviousData(data)
             setData(updateData(data, Object.keys(selectedRowIds)))}
-            }>Calculate Score</Button>{' '}
-        <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
-        <pre>
-          <code>
-            {JSON.stringify(
-              {
-                selectedRowIds: selectedRowIds,
-                'selectedFlatRows[].original': selectedFlatRows.map(
-                  d => d.original
-                ),
-              },
-              null,
-              2
-            )}
-          </code>
-        </pre>
+        }>Calculate Score</Button>{' '}
         </>
     )
 }
